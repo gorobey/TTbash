@@ -14,6 +14,7 @@ STAGING_DB_DUMP="/path/to/staging/db_dump.sql"
 # Importa le funzioni di logging
 source $SCRIPT_DIR/logging.sh
 
+# Log di avvio
 log_message "info" "PROD Sync - Inizio esecuzione"
 
 # Scarica i file di upload

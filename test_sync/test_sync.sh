@@ -7,10 +7,12 @@ SCRIPT_DIR=$(dirname "$(realpath "$0")")
 DRUPAL_DIR="/path/to/drupal"
 SYNC_DIR="/path/to/sync"
 BRANCH_NAME="your_branch_name"
-LOG_FILE="$SCRIPT_DIR/test_sync.log"
 
 # Importa le funzioni di logging
 source $SCRIPT_DIR/logging.sh
+
+# Log di avvio
+log_message "info" "TEST Sync - Inizio esecuzione"
 
 # Esporta le configurazioni da Drupal
 cd $DRUPAL_DIR || { log_message "error" "Errore installazione Drupal non trovata in $DRUPAL_DIR"; exit 1; }
@@ -23,7 +25,7 @@ else
 fi
 
 # Add, Commit e Push delle configurazioni esportate
-cd $SYNC_DIR  || { log_message "error" "Errore installazione Drupal non trovata"; exit 1; }
+cd $SYNC_DIR  || { log_message "error" "Errore installazione Drupal non trovata in $SYNC_DIR"; exit 1; }
 CMD=$(git add . 2>&1)
 if [ $? -eq 0 ]; then
   log_message "success" "Git add completato con successo"

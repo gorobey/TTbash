@@ -28,5 +28,5 @@ log_message() {
             ;;
     esac
 
-    echo -e "${color}$(date '+%Y-%m-%d %H:%M:%S') - $message${NC}\n\r-------\n\r" >> $LOG_FILE
+    echo -e "${color}$(date '+%Y-%m-%d %H:%M:%S') - $message${NC}" >> $LOG_FILE
 }

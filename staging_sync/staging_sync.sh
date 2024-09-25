@@ -10,10 +10,12 @@ DB_USER="postgres"
 DB_HOST="localhost"
 DRUPAL_DIR="/path/to/drupal"
 BRANCH_NAME="your_branch_name"
-LOG_FILE="$SCRIPT_DIR/staging_sync.log"
 
 # Importa le funzioni di logging
 source $SCRIPT_DIR/logging.sh
+
+# Log di avvio
+log_message "info" "STAGING Sync - Inizio esecuzione"
 
 # Drop delle tabelle esistenti
 CMD=$(psql -U $DB_USER -h $DB_HOST -d $DB_NAME -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;" 2>&1)
@@ -34,7 +36,7 @@ else
 fi
 
 # Pull delle configurazioni dal branch
-cd $DRUPAL_DIR || { log_message "error" "Errore installazione Drupal non trovata in:\n\r$DRUPAL_DIR"; exit 1; }
+cd $DRUPAL_DIR || { log_message "error" "Errore installazione Drupal non trovata in: $DRUPAL_DIR"; exit 1; }
 CMD=$(git pull origin $BRANCH_NAME -y 2>&1)
 if [ $? -eq 0 ]; then
   log_message "success" "Git pull delle configurazioni completato con successo"
