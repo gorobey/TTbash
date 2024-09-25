@@ -22,7 +22,7 @@ psql -U $DB_USER -h $DB_HOST -d $DB_NAME -c "DROP SCHEMA public CASCADE; CREATE 
 pg_restore -U $DB_USER -h $DB_HOST -d $DB_NAME -v $DB_DUMP 2>> $LOG_FILE || { log_error "Errore durante l'importazione del dump del database"; exit 1; }
 
 # Pull delle configurazioni dal branch
-cd $DRUPAL_DIR
+cd $DRUPAL_DIR || { log_error "Errore installazione Drupal non trovata"; exit 1; }
 git pull origin $BRANCH_NAME 2>> $LOG_FILE || { log_error "Errore durante git pull"; exit 1; }
 
 # Importa le configurazioni

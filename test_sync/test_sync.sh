@@ -13,7 +13,7 @@ LOG_FILE="$SCRIPT_DIR/test_sync.log"
 source $SCRIPT_DIR/logging.sh
 
 # Esporta le configurazioni da Drupal
-cd $DRUPAL_DIR
+cd $DRUPAL_DIR || { log_error "Errore installazione Drupal non trovata"; exit 1; }
 ./vendor/drush/drush/drush config-export --destination=$SYNC_DIR -y 2>> $LOG_FILE || { log_error "Errore durante l'esportazione delle configurazioni da Drupal"; exit 1; }
 
 # Add, Commit e Push delle configurazioni esportate
