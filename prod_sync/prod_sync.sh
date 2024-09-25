@@ -24,4 +24,4 @@ pg_dump -U postgres -h localhost -F c -b -v -f $DB_DUMP your_database_name 2>> $
 scp $DB_DUMP $STAGING_USER@$STAGING_HOST:$STAGING_DB_DUMP 2>> $LOG_FILE || { log_error "Errore durante il trasferimento del dump del database"; exit 1; }
 
 # Log di successo
-echo "$(date '+%Y-%m-%d %H:%M:%S') - Esecuzione completata con successo" >> $LOG_FILE
+log_success "$(date '+%Y-%m-%d %H:%M:%S') - Esecuzione completata con successo"

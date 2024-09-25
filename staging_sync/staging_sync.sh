@@ -29,4 +29,4 @@ git pull origin $BRANCH_NAME 2>> $LOG_FILE || { log_error "Errore durante git pu
 ./vendor/drush/drush/drush config-import -y 2>> $LOG_FILE || { log_error "Errore durante l'importazione delle configurazioni"; exit 1; }
 
 # Log di successo
-echo "$(date '+%Y-%m-%d %H:%M:%S') - Esecuzione completata con successo" >> $LOG_FILE
+log_success "$(date '+%Y-%m-%d %H:%M:%S') - Esecuzione completata con successo"
