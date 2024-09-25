@@ -1,4 +1,8 @@
 #!/bin/bash
+# Questo è uno script da eseguire via cron
+# Viene utilizzato per sincronizzare la copia di STAGING con quella di PRODUZIONE
+# Deve essere eseguito sul server di STAGING
+# Deve essere eseguito dopo aver l'esecuzione di Prod Sync sul server di PRODUZIONE
 
 # Path dello script
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
@@ -12,7 +16,7 @@ DRUPAL_DIR="/path/to/drupal"
 BRANCH_NAME="your_branch_name"
 
 # Importa le funzioni di logging
-source $SCRIPT_DIR/logging.sh
+source $SCRIPT_DIR/scripts/logging.sh
 
 # Log di avvio
 log_message "info" "STAGING Sync - Inizio esecuzione"

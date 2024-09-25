@@ -1,0 +1,35 @@
+[0;34m2024-09-25 15:21:07 - PUBLISH TO PROD - Inizio esecuzione[0m
+[0;34m2024-09-25 15:21:07 - Creazione della copia di backup di Drupal[0m
+[0;31m2024-09-25 15:21:07 - Errore durante la copia di backup della directory di Drupal[0m
+[0;34m2024-09-25 15:21:34 - PUBLISH TO PROD - Inizio esecuzione[0m
+[0;34m2024-09-25 15:21:34 - Creazione della copia di backup di Drupal[0m
+[0;31m2024-09-25 15:21:34 - Errore durante la copia di backup della directory di Drupal[0m
+[0;34m2024-09-25 15:21:38 - RESTORE - Inizio esecuzione[0m
+[0;34m2024-09-25 15:21:38 - Ripristino del backup di Drupal[0m
+[0;31m2024-09-25 15:21:39 - Errore durante il ripristino della copia di backup della directory di Drupal[0m
+[0;34m2024-09-25 15:21:44 - BACKUP - Inizio esecuzione[0m
+[0;31m2024-09-25 15:21:45 - Errore durante la copia di backup della directory di Drupal[0m
+[0;34m2024-09-25 15:28:58 - RESTORE - Inizio esecuzione[0m
+[0;34m2024-09-25 15:28:58 - Ripristino del backup di Drupal[0m
+[0;31m2024-09-25 15:28:58 - Errore durante il ripristino della copia di backup della directory di Drupal[0m
+\033[0;34m2024-09-25 15:40:55 - RESTORE - Inizio esecuzione\033[0m
+\033[0;34m2024-09-25 15:40:55 - Ripristino del backup di Drupal\033[0m
+\033[0;31m2024-09-25 15:40:55 - Errore durante il ripristino della copia di backup della directory di Drupal\033[0m
+\033[0;34m2024-09-25 15:41:46 - RESTORE - Inizio esecuzione\033[0m
+\033[0;34m2024-09-25 15:41:46 - Ripristino del backup di Drupal\033[0m
+\033[0;31m2024-09-25 15:41:46 - Errore durante il ripristino della copia di backup della directory di Drupal\033[0m
+\033[0;34m2024-09-25 15:44:09 - RESTORE - Inizio esecuzione\033[0m
+\033[0;34m2024-09-25 15:44:09 - Ripristino del backup di Drupal\033[0m
+\033[0;31m2024-09-25 15:44:09 - Errore durante il ripristino della copia di backup della directory di Drupal\033[0m
+[0;34m2024-09-25 15:44:40 - RESTORE - Inizio esecuzione[0m
+[0;34m2024-09-25 15:44:40 - Ripristino del backup di Drupal[0m
+[0;31m2024-09-25 15:44:40 - Errore durante il ripristino della copia di backup della directory di Drupal[0m
+[0;34m2024-09-25 15:45:22 - RESTORE - Inizio esecuzione[0m
+[0;34m2024-09-25 15:45:22 - Ripristino del backup di Drupal[0m
+[0;31m2024-09-25 15:45:22 - Errore durante il ripristino della copia di backup della directory di Drupal[0m
+[0;34m2024-09-25 15:45:33 - RESTORE - Inizio esecuzione[0m
+[0;34m2024-09-25 15:45:33 - Ripristino del backup di Drupal[0m
+[0;31m2024-09-25 15:45:33 - Errore durante il ripristino della copia di backup della directory di Drupal[0m
+[0;36m2024-09-25 15:46:57 - RESTORE - Inizio esecuzione[0m
+[0;36m2024-09-25 15:46:57 - Ripristino del backup di Drupal[0m
+[0;31m2024-09-25 15:46:57 - Errore durante il ripristino della copia di backup della directory di Drupal[0m

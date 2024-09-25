@@ -1,4 +1,8 @@
 #!/bin/bash
+# Questo è uno script da eseguire via cron
+# Viene utilizzato per importare file modificati e configurazioni della versione di TEST in quella di STAGING
+# Deve essere eseguito sul server di TEST
+# Deve essere eseguito dopo aver l'esecuzione di Staging Sync sul server di STAGING
 
 # Path dello script
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
@@ -9,7 +13,7 @@ SYNC_DIR="/path/to/sync"
 BRANCH_NAME="your_branch_name"
 
 # Importa le funzioni di logging
-source $SCRIPT_DIR/logging.sh
+source $SCRIPT_DIR/scripts/logging.sh
 
 # Log di avvio
 log_message "info" "TEST Sync - Inizio esecuzione"

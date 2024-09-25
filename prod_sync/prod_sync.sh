@@ -1,4 +1,7 @@
 #!/bin/bash
+# Questo è uno script da eseguire via cron
+# Viene utilizzato per sincronizzare la copia di staging con quella di produzione
+# Deve essere eseguito sul server di PRODUZIONE
 
 # Path dello script
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
@@ -12,7 +15,7 @@ STAGING_UPLOAD_DIR="/path/to/staging/upload"
 STAGING_DB_DUMP="/path/to/staging/db_dump.sql"
 
 # Importa le funzioni di logging
-source $SCRIPT_DIR/logging.sh
+source $SCRIPT_DIR/scripts/logging.sh
 
 # Log di avvio
 log_message "info" "PROD Sync - Inizio esecuzione"

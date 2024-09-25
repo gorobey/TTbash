@@ -3,7 +3,7 @@
 # Colori
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-BLUE='\033[0;34m'
+CYAN='\e[0;36m'
 NC='\033[0m' # No Color
 LOG_FILE="$SCRIPT_DIR/sync.log"
 
@@ -15,7 +15,7 @@ log_message() {
 
     case $type in
         info)
-            color=$BLUE
+            color=$CYAN
             ;;
         success)
             color=$GREEN
@@ -28,5 +28,6 @@ log_message() {
             ;;
     esac
 
-    echo -e "${color}$(date '+%Y-%m-%d %H:%M:%S') - $message${NC}" >> $LOG_FILE
+    LOG_MSG="${color}$(date '+%Y-%m-%d %H:%M:%S') - $message${NC}"
+    echo -e $LOG_MSG | tee -a $LOG_FILE
 }
