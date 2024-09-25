@@ -3,15 +3,30 @@
 # Colori
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
-LOG_FILE="$SCRIPT_DIR/prod_sync.log"
+LOG_FILE="$SCRIPT_DIR/sync.log"
 
-# Funzione per loggare errori
-log_error() {
-    echo -e "$(date '+%Y-%m-%d %H:%M:%S') - ${RED}$1${NC}" >> $LOG_FILE
-}
+# Funzione per loggare messaggi
+log_message() {
+    local type=$1
+    local message=$2
+    local color
 
-# Funzione per loggare successi
-log_success() {
-    echo -e "$(date '+%Y-%m-%d %H:%M:%S') - ${GREEN}$1${NC}" >> $LOG_FILE
+    case $type in
+        info)
+            color=$BLUE
+            ;;
+        success)
+            color=$GREEN
+            ;;
+        error)
+            color=$RED
+            ;;
+        *)
+            color=$NC
+            ;;
+    esac
+
+    echo -e "${color}$(date '+%Y-%m-%d %H:%M:%S') - $message${NC}\n\r-------\n\r" >> $LOG_FILE
 }

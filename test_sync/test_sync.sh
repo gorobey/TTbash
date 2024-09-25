@@ -13,14 +13,40 @@ LOG_FILE="$SCRIPT_DIR/test_sync.log"
 source $SCRIPT_DIR/logging.sh
 
 # Esporta le configurazioni da Drupal
-cd $DRUPAL_DIR || { log_error "Errore installazione Drupal non trovata"; exit 1; }
-./vendor/drush/drush/drush config-export --destination=$SYNC_DIR -y 2>> $LOG_FILE || { log_error "Errore durante l'esportazione delle configurazioni da Drupal"; exit 1; }
+cd $DRUPAL_DIR || { log_message "error" "Errore installazione Drupal non trovata in $DRUPAL_DIR"; exit 1; }
+CMD=$(./vendor/drush/drush/drush config-export --destination=$SYNC_DIR -y 2>&1)
+if [ $? -eq 0 ]; then
+  log_message "success" "Esportazione delle configurazioni da Drupal completata con successo"
+else
+  log_message "error" "Errore durante l'esportazione delle configurazioni da Drupal:\n\r$CMD"
+  exit 1
+fi
 
 # Add, Commit e Push delle configurazioni esportate
-cd $SYNC_DIR
-git add . 2>> $LOG_FILE || { log_error "Errore durante git add"; exit 1; }
-git commit -m "Daily config export" 2>> $LOG_FILE || { log_error "Errore durante git commit"; exit 1; }
-git push origin $BRANCH_NAME 2>> $LOG_FILE || { log_error "Errore durante git push"; exit 1; }
+cd $SYNC_DIR  || { log_message "error" "Errore installazione Drupal non trovata"; exit 1; }
+CMD=$(git add . 2>&1)
+if [ $? -eq 0 ]; then
+  log_message "success" "Git add completato con successo"
+else
+  log_message "error" "Errore durante git add"
+  exit 1
+fi
+
+CMD=$(git commit -m "Daily config export" 2>&1)
+if [ $? -eq 0 ]; then
+  log_message "success" "Git commit completato con successo"
+else
+  log_message "error" "Errore durante git commit:\n\r$CMD"
+  exit 1
+fi
+
+CMD=$(git push origin $BRANCH_NAME 2>&1)
+if [ $? -eq 0 ]; then
+  log_message "success" "Git push completato con successo"
+else
+  log_message "error" "Errore durante git push:\n\r$CMD"
+  exit 1
+fi
 
 # Log di successo
-echo "$(date '+%Y-%m-%d %H:%M:%S') - Esecuzione completata con successo" >> $LOG_FILE
+log_message "info" "Esecuzione completata con successo!"
