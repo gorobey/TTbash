@@ -1,13 +1,13 @@
 #!/bin/bash
 # Questo è uno script da eseguire via cron
 # Viene utilizzato per sincronizzare la copia di STAGING con quella di PRODUZIONE
+# deve essere eseguito per terzo
 # Deve essere eseguito sul server di STAGING
-# Deve essere eseguito dopo aver l'esecuzione di Prod Sync sul server di PRODUZIONE
-
-# Path dello script
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
+# Deve essere eseguito dopo aver l'esecuzione di Test Sync sul server di TEST
 
 # Imposta le variabili
+STAGING_SYNC_DIR="/path/to/staging_sync"
+TEST_SYNC_DIR="/path/to/test_sync"
 DB_DUMP="/path/to/db_dump.sql"
 DB_NAME="your_staging_database_name"
 DB_USER="postgres"
@@ -15,8 +15,33 @@ DB_HOST="localhost"
 DRUPAL_DIR="/path/to/drupal"
 BRANCH_NAME="your_branch_name"
 
+# Path dello script
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+# Nome del file di lock dinamico
+SCRIPT_NAME=$(basename "$0" .sh)
+LOCK_FILE="$SCRIPT_DIR/${SCRIPT_NAME}.lock"
+
+# Crea il file di lock
+touch $LOCK_FILE
+
+# Funzione per rimuovere il file di lock
+cleanup() {
+  if [ $? -eq 0 ]; then
+    rm -f $LOCK_FILE
+  fi
+}
+
+# Registra la funzione cleanup per essere eseguita all'uscita con successo
+trap cleanup 0
+
 # Importa le funzioni di logging
 source $SCRIPT_DIR/scripts/logging.sh
+
+# Controlla se il file di lock esiste
+if [ -f "$LOCK_FILE" ]; then
+  log_message "error" "File di lock presente. Un'altra istanza dello script è in esecuzione."
+  exit 1
+fi
 
 # Log di avvio
 log_message "info" "STAGING Sync - Inizio esecuzione"
