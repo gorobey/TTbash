@@ -1,9 +1,7 @@
 #!/bin/bash
-# Questo è uno script da eseguire via cron
-# Viene utilizzato per importare file modificati e configurazioni della versione di TEST in quella di STAGING
-# deve essere eseguito per secondo
+# Questo script deve essere eseguito a .git/hooks/pre-push
 # Deve essere eseguito sul server di TEST
-# Deve essere eseguito dopo aver l'esecuzione di Prod Sync sul server di PRODUZIONE
+# Viene utilizzato per fare il push di  file modificati e configurazioni della versione di TEST su git
 
 # Imposta le variabili
 STAGING_SYNC_DIR="/path/to/staging_sync"
@@ -13,35 +11,16 @@ BRANCH_NAME="your_branch_name"
 
 # Path dello script
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
+# Nome del file di lock dinamico
+SCRIPT_NAME=$(basename "$0" .sh)
 
 # Path della cartella di Sync
 SYNC_DIR="$SCRIPT_DIR/sync"
 
-# Nome del file di lock dinamico
-SCRIPT_NAME=$(basename "$0" .sh)
-LOCK_FILE="$SCRIPT_DIR/${SCRIPT_NAME}.lock"
-
-# Crea il file di lock
-touch $LOCK_FILE
-
-# Funzione per rimuovere il file di lock
-cleanup() {
-  if [ $? -eq 0 ]; then
-    rm -f $LOCK_FILE
-  fi
-}
-
-# Registra la funzione cleanup per essere eseguita all'uscita con successo
-trap cleanup 0
-
 # Importa le funzioni di logging
 source $SCRIPT_DIR/scripts/logging.sh
-
-# Controlla se il file di lock esiste
-if [ -f "$LOCK_FILE" ]; then
-  log_message "error" "File di lock presente. Un'altra istanza dello script è in esecuzione."
-  exit 1
-fi
+# Importa le funzioni di lock
+source $SCRIPT_DIR/scripts/lock_file.sh
 
 # Log di avvio
 log_message "info" "TEST Sync - Inizio esecuzione"
@@ -63,22 +42,6 @@ if [ $? -eq 0 ]; then
   log_message "success" "Git add completato con successo"
 else
   log_message "error" "Errore durante git add"
-  exit 1
-fi
-
-CMD=$(git commit -m "Daily config export" 2>&1)
-if [ $? -eq 0 ]; then
-  log_message "success" "Git commit completato con successo"
-else
-  log_message "error" "Errore durante git commit:\n\r$CMD"
-  exit 1
-fi
-
-CMD=$(git push origin $BRANCH_NAME 2>&1)
-if [ $? -eq 0 ]; then
-  log_message "success" "Git push completato con successo"
-else
-  log_message "error" "Errore durante git push:\n\r$CMD"
   exit 1
 fi
 
